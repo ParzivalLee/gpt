@@ -10,15 +10,19 @@ class ChatGPT:
         openai.api_key = api_key
         self.messages = CHATGPT_INIT_MESSAGES
 
-    # 向ChatGPT发送消息
-    # @param text 要发送的信息
-    # @return Chat GPT给出的回应
-    def send(self, text, messages=None):
+    def send(self, text, messages=None) -> str:
+        """
+        向ChatGPT发送消息
+        :param text: 要发送的信息
+        :param messages: 要发送的信息列表（上下文）
+        :return: GPT响应的消息
+        """
         # 如果没有自定义的messages, 则使用默认的messages
         if not messages:
             messages = self.messages
 
         # 确保发送给ChatGPT的消息不超过10条
+        # 但是要保留开头的角色定义
         if len(messages) > 9:
             messages = messages[0:1] + messages[-8:]
 
